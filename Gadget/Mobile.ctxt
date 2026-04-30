@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Mobile
+comment1.params=model\ price\ weight\ size\ callingCredit
+comment1.target=Mobile(java.lang.String,\ double,\ int,\ java.lang.String,\ int)
+comment2.params=
+comment2.target=void\ display()
+comment3.params=creditToAdd
+comment3.target=void\ addCallingCredit(int)
+comment4.params=
+comment4.target=int\ getCallingCredit()
+comment5.params=phoneNumber\ duration
+comment5.target=void\ makeCall(java.lang.String,\ int)
+comment6.params=args
+comment6.target=void\ main(java.lang.String[])
+numComments=7
