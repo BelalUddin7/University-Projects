@@ -1,0 +1,111 @@
+# Name of program (STUDENT MARKS CALCULATOR)
+# Author of the program (Muhammod Belal Uddin)
+# Date programmed (Start - 23/03/2024) (End - 01/04/2024)
+# Purpose of program (Part 1) (To Design and allow user input for primary function)
+
+# Function to collect student marks from user input
+def student_marks(): 
+    marks = [] # Initialize an empty list to store the marks
+    while True: # Infinite loop until user enters 'done'
+        mark = input("Enter a mark (or 'done' to finish): ") # Prompt user for input
+        if mark.lower() == 'done': # Confirm if user wants to proceed
+            break # Exit the loop if 'done' is entered
+        try:
+            marks.append(float(mark)) # Convert the input to float and append to the marks list
+        except ValueError:
+            print("Please enter a valid number.") # Notify user if input is not a valid number
+    return marks # Return the list of marks
+
+# Function to allow the user to enter a new set of numbers
+def enter_new_numbers():
+    global marks_list # Access the global variable 'marks_list'
+    marks = [] # Clear the marks list for new input
+    while True: # Infinite loop until user enters 'done'
+        mark = input("Enter a mark (or type 'done' to finish): ") # Prompt user for input
+        if mark.lower() == 'done': # Check if user wants to finish
+            break  # Exit the loop if 'done' is entered
+        else:
+            try:
+                marks.append(float(mark)) # Convert the input to float and append to the marks list
+            except ValueError:
+                print("Please enter a valid number.") # Notify user if input is not a valid number
+    print("You have entered", len(marks), "marks.") # Inform user about the number of marks entered
+    marks_list = marks # Update marks_list with the new set of marks
+
+# Function to allow the user to exit the application
+def exit_application():
+    print("Exiting the application.")  # Notify user about exiting
+    exit()  # Exit the program
+
+# Printing the mode of the marks
+def calculate_mode(marks):
+    if not marks: # Check if no marks are entered
+        print("No marks entered.") # Notify user if no marks are entered
+        return
+
+    # Count occurrences of each mark
+    mark_counts = {} # Initialize an empty dictionary to store mark counts
+    for mark in marks: # Iterate through the marks list
+        if mark in mark_counts:
+            mark_counts[mark] += 1 # Increment count if mark already exists in dictionary
+        else:
+            mark_counts[mark] = 1 # Initialize count to 1 if mark is encountered for the first time
+
+    # Find the mode(s)
+    max_count = max(mark_counts.values()) # Find the maximum count
+    modes = [mark for mark, count in mark_counts.items() if count == max_count] # Get marks with maximum count
+
+    if len(modes) == 1: # Check if there is only one mode
+        print("Mode of the numbers:", modes[0]) # Print the mode
+    else:
+        print("Modes of the numbers:", ", ".join(str(mode) for mode in modes)) # Print multiple modes if exist
+
+# Collecting student marks
+marks_list = student_marks() # Call the function to collect marks and store in marks_list
+print("Marks entered:", marks_list) # Print the entered marks
+
+# Printing the mean of the marks
+def calculate_mean(marks):
+    if not marks:  # Check if no marks are entered
+        return 0  # Return 0 if no marks are entered
+    return sum(marks) / len(marks)  # Calculate mean and return
+
+# Printing the median of the marks
+def calculate_median(marks):
+    sort_marks = sorted(marks)  # Sort the marks in ascending order
+    n = len(sort_marks)  # Get the number of marks
+    if n % 2 == 0:  # Check if the number of marks is even
+        middle_index = n // 2  # Calculate the middle index
+        median = (sort_marks[middle_index - 1] + sort_marks[middle_index]) / 2  # Calculate the median
+    else:
+        median = sort_marks[n // 2]  # If the number of marks is odd, median is the middle value
+    return median  # Return the median
+
+# Loop to present the menu and handle user input
+def main():
+    while True:  # Infinite loop until user chooses to exit
+        print("\nOptions:")  # Display options to the user
+        print("1. Print mean")
+        print("2. Print median")
+        print("3. Print mode")
+        print("4. Enter new set of numbers")
+        print("5. Exit")
+        
+        choice = input("Enter your choice: ")  # Prompt user for choice
+
+        if choice == '1':  # If user chooses option 1
+            print("Mean:", calculate_mean(marks_list))  # Calculate and print mean
+        elif choice == '2':  # If user chooses option 2
+            print("Median:", calculate_median(marks_list))  # Calculate and print median
+        elif choice == '3':  # If user chooses option 3
+            calculate_mode(marks_list)  # Calculate and print mode
+        elif choice == '4':  # If user chooses option 4
+            enter_new_numbers()  # Allow user to enter new set of numbers
+        elif choice == '5':  # If user chooses option 5
+            exit_application()  # Exit the application
+        else:
+            print("Invalid choice. Please try again.")  # Notify user if choice is invalid
+
+# Running main function
+if __name__ == "__main__":
+    main() # Execute the main function
